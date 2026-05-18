@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Calculator, HeartPulse, Sigma, Settings2, Search, Moon, Sun, Menu, X } from "lucide-react";
+import { Calculator, HeartPulse, Sigma, Settings2, Moon, Sun, Menu, BookOpen } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -15,6 +15,7 @@ export function Nav() {
     { href: "/health", label: "Health", icon: HeartPulse },
     { href: "/math", label: "Math", icon: Sigma },
     { href: "/other", label: "Other", icon: Settings2 },
+    { href: "/blog", label: "Blog", icon: BookOpen },
   ];
 
   const isActive = (path: string) => location.startsWith(path);

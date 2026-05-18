@@ -59,13 +59,6 @@ export function MortgageCalc() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Mortgage Calculator</h1>
-        <p className="text-muted-foreground mt-2">
-          Calculate your monthly mortgage payments and total interest over the life of the loan.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>

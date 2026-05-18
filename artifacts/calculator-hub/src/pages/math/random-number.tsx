@@ -32,7 +32,6 @@ export function RandomNumberCalc() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <div><h1 className="text-3xl font-bold">Random Number Generator</h1></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader><CardTitle>Settings</CardTitle></CardHeader>

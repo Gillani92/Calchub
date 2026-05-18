@@ -46,13 +46,6 @@ export function CompoundInterestCalc() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Compound Interest Calculator</h1>
-        <p className="text-muted-foreground mt-2">
-          Calculate the future value of an investment with compound interest.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>

@@ -3,6 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { ThemeProvider } from "@/components/theme-provider";
+import { lazy, Suspense } from "react";
+import { CalcWrapper } from "@/components/calc-wrapper";
 
 import NotFound from "@/pages/not-found";
 import { Layout } from "@/components/layout";
@@ -38,46 +40,126 @@ import { RandomNumberCalc } from "@/pages/math/random-number";
 import { PasswordGenerator } from "@/pages/other/password";
 import { GasCalc } from "@/pages/other/gas";
 
+import { SEOVariantPage } from "@/pages/seo-variants";
+
+const About = lazy(() => import("@/pages/about").then((m) => ({ default: m.About })));
+const Contact = lazy(() => import("@/pages/contact").then((m) => ({ default: m.Contact })));
+const PrivacyPolicy = lazy(() => import("@/pages/privacy").then((m) => ({ default: m.PrivacyPolicy })));
+const Terms = lazy(() => import("@/pages/terms").then((m) => ({ default: m.Terms })));
+const Disclaimer = lazy(() => import("@/pages/disclaimer").then((m) => ({ default: m.Disclaimer })));
+const BlogIndex = lazy(() => import("@/pages/blog/index").then((m) => ({ default: m.BlogIndex })));
+const BlogArticle = lazy(() => import("@/pages/blog/article").then((m) => ({ default: m.BlogArticle })));
+
 const queryClient = new QueryClient();
+
+function wrap(id: string, Component: React.ComponentType) {
+  return function WrappedCalc() {
+    return (
+      <CalcWrapper id={id}>
+        <Component />
+      </CalcWrapper>
+    );
+  };
+}
+
+const Mortgage = wrap("mortgage", MortgageCalc);
+const CompoundInterest = wrap("compound-interest", CompoundInterestCalc);
+const Loan = wrap("loan", LoanCalc);
+const AutoLoan = wrap("auto-loan", AutoLoanCalc);
+const Salary = wrap("salary", SalaryCalc);
+const Tip = wrap("tip", TipCalc);
+const SalesTax = wrap("sales-tax", SalesTaxCalc);
+const Discount = wrap("discount", DiscountCalc);
+const SimpleInterest = wrap("interest", SimpleInterestCalc);
+const Investment = wrap("investment", InvestmentCalc);
+const Retirement = wrap("retirement", RetirementCalc);
+const Inflation = wrap("inflation", InflationCalc);
+
+const BMI = wrap("bmi", BMICalc);
+const Calorie = wrap("calorie", CalorieCalc);
+const BodyFat = wrap("body-fat", BodyFatCalc);
+const IdealWeight = wrap("ideal-weight", IdealWeightCalc);
+
+const Percentage = wrap("percentage", PercentageCalc);
+const Age = wrap("age", AgeCalc);
+const RandomNumber = wrap("random-number", RandomNumberCalc);
+
+const Password = wrap("password", PasswordGenerator);
+const Gas = wrap("gas", GasCalc);
+
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[200px]">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+    </div>
+  );
+}
 
 function Router() {
   return (
     <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        
-        <Route path="/financial" component={FinancialIndex} />
-        <Route path="/health" component={HealthIndex} />
-        <Route path="/math" component={MathIndex} />
-        <Route path="/other" component={OtherIndex} />
+      <Suspense fallback={<PageLoader />}>
+        <Switch>
+          <Route path="/" component={Home} />
 
-        <Route path="/mortgage" component={MortgageCalc} />
-        <Route path="/compound-interest" component={CompoundInterestCalc} />
-        <Route path="/loan" component={LoanCalc} />
-        <Route path="/auto-loan" component={AutoLoanCalc} />
-        <Route path="/salary" component={SalaryCalc} />
-        <Route path="/tip" component={TipCalc} />
-        <Route path="/sales-tax" component={SalesTaxCalc} />
-        <Route path="/discount" component={DiscountCalc} />
-        <Route path="/interest" component={SimpleInterestCalc} />
-        <Route path="/investment" component={InvestmentCalc} />
-        <Route path="/retirement" component={RetirementCalc} />
-        <Route path="/inflation" component={InflationCalc} />
-        
-        <Route path="/bmi" component={BMICalc} />
-        <Route path="/calorie" component={CalorieCalc} />
-        <Route path="/body-fat" component={BodyFatCalc} />
-        <Route path="/ideal-weight" component={IdealWeightCalc} />
-        
-        <Route path="/percentage" component={PercentageCalc} />
-        <Route path="/age" component={AgeCalc} />
-        <Route path="/random-number" component={RandomNumberCalc} />
-        
-        <Route path="/password" component={PasswordGenerator} />
-        <Route path="/gas" component={GasCalc} />
+          <Route path="/financial" component={FinancialIndex} />
+          <Route path="/health" component={HealthIndex} />
+          <Route path="/math" component={MathIndex} />
+          <Route path="/other" component={OtherIndex} />
 
-        <Route component={NotFound} />
-      </Switch>
+          {/* Financial calculators */}
+          <Route path="/mortgage" component={Mortgage} />
+          <Route path="/compound-interest" component={CompoundInterest} />
+          <Route path="/loan" component={Loan} />
+          <Route path="/auto-loan" component={AutoLoan} />
+          <Route path="/salary" component={Salary} />
+          <Route path="/tip" component={Tip} />
+          <Route path="/sales-tax" component={SalesTax} />
+          <Route path="/discount" component={Discount} />
+          <Route path="/interest" component={SimpleInterest} />
+          <Route path="/investment" component={Investment} />
+          <Route path="/retirement" component={Retirement} />
+          <Route path="/inflation" component={Inflation} />
+
+          {/* Health calculators */}
+          <Route path="/bmi" component={BMI} />
+          <Route path="/calorie" component={Calorie} />
+          <Route path="/body-fat" component={BodyFat} />
+          <Route path="/ideal-weight" component={IdealWeight} />
+
+          {/* Math calculators */}
+          <Route path="/percentage" component={Percentage} />
+          <Route path="/age" component={Age} />
+          <Route path="/random-number" component={RandomNumber} />
+
+          {/* Other tools */}
+          <Route path="/password" component={Password} />
+          <Route path="/gas" component={Gas} />
+
+          {/* Programmatic SEO variants */}
+          <Route path="/bmi-calculator-for-men" component={SEOVariantPage} />
+          <Route path="/bmi-calculator-for-women" component={SEOVariantPage} />
+          <Route path="/bmi-calculator-kg" component={SEOVariantPage} />
+          <Route path="/bmi-calculator-pounds" component={SEOVariantPage} />
+          <Route path="/mortgage-calculator-with-taxes" component={SEOVariantPage} />
+          <Route path="/calorie-calculator-for-weight-loss" component={SEOVariantPage} />
+          <Route path="/calorie-calculator-for-muscle-gain" component={SEOVariantPage} />
+          <Route path="/compound-interest-calculator-monthly" component={SEOVariantPage} />
+
+          {/* Blog */}
+          <Route path="/blog" component={BlogIndex} />
+          <Route path="/blog/:slug" component={BlogArticle} />
+
+          {/* Legal / info pages */}
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/privacy" component={PrivacyPolicy} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/disclaimer" component={Disclaimer} />
+
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
     </Layout>
   );
 }

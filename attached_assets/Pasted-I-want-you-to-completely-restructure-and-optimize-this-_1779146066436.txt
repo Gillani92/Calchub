@@ -1,0 +1,247 @@
+I want you to completely restructure and optimize this website into a professional, scalable, SEO-first production-ready calculator + content platform suitable for Google ranking and AdSense approval.
+
+IMPORTANT:
+Do NOT focus only on UI/animations.
+Focus mainly on:
+- SEO
+- performance
+- scalability
+- crawlability
+- AdSense compliance
+- programmatic SEO
+- internal linking
+- content architecture
+
+==================================================
+1. CLEANUP & PRODUCTION OPTIMIZATION
+==================================================
+
+Remove all unnecessary development files and optimize the project for production deployment.
+
+Remove:
+- unnecessary dependencies
+- temp/cache files
+- hidden development files
+- unused assets
+- unused CSS/JS
+- duplicate code
+
+Enable:
+- code splitting
+- minification
+- lazy loading
+- compressed assets
+- optimized builds
+
+==================================================
+2. COMPLETE SEO IMPLEMENTATION
+==================================================
+
+Implement full technical SEO across the website.
+
+Add:
+- dynamic meta titles
+- dynamic meta descriptions
+- canonical URLs
+- Open Graph tags
+- Twitter cards
+- robots.txt
+- sitemap.xml
+- dynamic sitemap generation
+- structured data/schema markup
+- breadcrumb schema
+- FAQ schema
+- article schema
+- calculator schema
+
+==================================================
+3. WEBSITE STRUCTURE
+==================================================
+
+Create fully professional pages:
+
+- Home
+- About Us
+- Contact Us
+- Privacy Policy
+- Disclaimer
+- Terms & Conditions
+
+Add professional navigation and footer structure.
+
+==================================================
+4. CALCULATOR SEO STRUCTURE
+==================================================
+
+Every calculator page must include:
+
+- SEO optimized heading
+- introduction paragraph
+- formula explanation
+- examples
+- FAQs
+- educational content
+- related calculators
+- internal links
+
+Do NOT make calculator-only thin pages.
+
+==================================================
+5. PROGRAMMATIC SEO SYSTEM
+==================================================
+
+Build scalable programmatic SEO architecture.
+
+Example:
+One calculator should support multiple SEO landing pages automatically.
+
+Examples:
+- BMI Calculator for Men
+- BMI Calculator for Women
+- BMI by Age
+- BMI Formula
+- BMI in KG
+- BMI in Pounds
+
+Apply this scalable structure to all calculators.
+
+==================================================
+6. INTERNAL LINKING SYSTEM
+==================================================
+
+Implement automatic internal linking:
+
+- related calculators
+- related articles
+- category recommendations
+- breadcrumbs
+- footer recommendations
+
+==================================================
+7. CATEGORY STRUCTURE
+==================================================
+
+Create SEO-friendly categories:
+
+- Financial Calculators
+- Health Calculators
+- AI Tools
+- Math Calculators
+- Student Tools
+- Productivity Tools
+
+==================================================
+8. BLOG SYSTEM
+==================================================
+
+Add integrated SEO blog/article system connected with calculators.
+
+Support:
+- tutorials
+- educational articles
+- comparisons
+- FAQs
+- guides
+
+==================================================
+9. PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize website for Google PageSpeed.
+
+Target:
+- Mobile score 90+
+- Desktop score 95+
+
+Optimize:
+- CLS
+- LCP
+- FCP
+- image compression
+- WebP images
+- caching
+- preload important assets
+
+==================================================
+10. MOBILE-FIRST OPTIMIZATION
+==================================================
+
+Fully optimize for mobile-first indexing.
+
+Ensure:
+- responsive layout
+- fast loading
+- proper spacing
+- stable layout
+- touch-friendly navigation
+
+==================================================
+11. GOOGLE INDEXING OPTIMIZATION
+==================================================
+
+Ensure:
+- clean URL structure
+- no duplicate URLs
+- proper canonical setup
+- no redirect chains
+- all pages crawlable/indexable
+
+==================================================
+12. TRUST & ADSENSE OPTIMIZATION
+==================================================
+
+Add trust signals:
+
+- author section
+- updated dates
+- structured footer
+- contact information
+- privacy notices
+- professional branding
+
+Ensure the website is suitable for Google AdSense approval.
+
+==================================================
+13. HOMEPAGE IMPROVEMENT
+==================================================
+
+Redesign homepage with SEO-focused structure.
+
+Add:
+- keyword-rich intro
+- featured calculators
+- category sections
+- latest articles
+- FAQs
+- internal linking sections
+
+==================================================
+14. SECURITY & TECHNICAL
+==================================================
+
+Add:
+- HTTPS enforcement
+- security headers
+- gzip/brotli compression
+- custom 404 page
+- proper routing
+
+==================================================
+15. FINAL GOAL
+==================================================
+
+Transform this into a high-quality hybrid authority website combining:
+- calculators
+- educational content
+- SEO articles
+- AI/productivity tools
+
+The final result should be:
+- scalable
+- fast
+- SEO-first
+- AdSense-ready
+- production-ready
+- modern
+- mobile optimized
+- structured for long-term Google ranking.
