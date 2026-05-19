@@ -8,9 +8,10 @@ interface SEOProps {
   canonical?: string;
   jsonLd?: object | object[];
   noIndex?: boolean;
+  keywords?: string[];
 }
 
-export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps) {
+export function SEO({ title, description, canonical, jsonLd, noIndex, keywords }: SEOProps) {
   const [location] = useLocation();
   const pageSEO = getPageSEO(location);
 
@@ -20,6 +21,9 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
 
   const calcId = location.replace(/^\//, "");
   const calcData = calculatorSEO[calcId];
+  const resolvedKeywords = keywords ?? calcData?.keywords;
+
+  const calcDisplayName = calcData?.title.split(" — ")[0].split(" | ")[0] ?? resolvedTitle;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -29,7 +33,7 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
       ...(calcData
         ? [
             { "@type": "ListItem", "position": 2, "name": calcData.category, "item": `${SITE_URL}${calcData.categoryPath}` },
-            { "@type": "ListItem", "position": 3, "name": calcData.name ?? resolvedTitle, "item": resolvedCanonical },
+            { "@type": "ListItem", "position": 3, "name": calcDisplayName, "item": resolvedCanonical },
           ]
         : []),
     ],
@@ -38,6 +42,7 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
   const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     "name": SITE_NAME,
     "url": SITE_URL,
     "description": "Free online calculators for finance, health, math, and everyday decisions.",
@@ -46,6 +51,17 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
       "target": { "@type": "EntryPoint", "urlTemplate": `${SITE_URL}/?q={search_term_string}` },
       "query-input": "required name=search_term_string",
     },
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${resolvedCanonical}#webpage`,
+    "url": resolvedCanonical,
+    "name": resolvedTitle,
+    "description": resolvedDesc,
+    "isPartOf": { "@id": `${SITE_URL}/#website` },
+    ...(calcData ? { "dateModified": calcData.updatedDate } : {}),
   };
 
   const faqSchema = calcData?.faq?.length
@@ -64,17 +80,19 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
     ? {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": resolvedTitle.split(" — ")[0].split(" | ")[0],
+        "name": calcDisplayName,
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "url": resolvedCanonical,
         "description": resolvedDesc,
+        "dateModified": calcData.updatedDate,
       }
     : null;
 
   const schemas = [
     webSiteSchema,
+    webPageSchema,
     breadcrumbSchema,
     faqSchema,
     softwareSchema,
@@ -86,8 +104,14 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
       <title>{resolvedTitle}</title>
       <meta name="description" content={resolvedDesc} />
       <link rel="canonical" href={resolvedCanonical} />
-      {noIndex && <meta name="robots" content="noindex,nofollow" />}
-      {!noIndex && <meta name="robots" content="index,follow" />}
+      {noIndex ? (
+        <meta name="robots" content="noindex,nofollow" />
+      ) : (
+        <meta name="robots" content="index,follow" />
+      )}
+      {resolvedKeywords && resolvedKeywords.length > 0 && (
+        <meta name="keywords" content={resolvedKeywords.join(", ")} />
+      )}
 
       {/* Open Graph */}
       <meta property="og:type" content="website" />
@@ -110,16 +134,4 @@ export function SEO({ title, description, canonical, jsonLd, noIndex }: SEOProps
       ))}
     </Helmet>
   );
-}
-
-interface CalcPageSEOProps {
-  id: string;
-  variantH1?: string;
-  variantNote?: string;
-}
-
-export function CalcPageSEO({ id, variantH1, variantNote }: CalcPageSEOProps) {
-  const data = calculatorSEO[id];
-  if (!data) return <SEO />;
-  return <SEO />;
 }

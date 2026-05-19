@@ -1,11 +1,12 @@
 import { Link } from "wouter";
-import { ChevronRight, Calendar, BookOpen, FlaskConical, Lightbulb } from "lucide-react";
+import { ChevronRight, Calendar, BookOpen, FlaskConical, Lightbulb, FileText, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SEO } from "@/components/seo";
 import { calculatorSEO, SITE_NAME } from "@/lib/seo";
 import { calculators } from "@/lib/calculators";
+import { blogArticles } from "@/lib/blog";
 
 interface CalcWrapperProps {
   id: string;
@@ -21,6 +22,10 @@ export function CalcWrapper({ id, children, variantH1, variantNote }: CalcWrappe
     .map((relId) => calculators.find((c) => c.id === relId))
     .filter(Boolean) ?? [];
 
+  const relatedArticles = blogArticles.filter(
+    (a) => a.relatedCalculators.includes(id)
+  );
+
   return (
     <>
       <SEO />
@@ -34,7 +39,9 @@ export function CalcWrapper({ id, children, variantH1, variantNote }: CalcWrappe
               {data.category}
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-foreground font-medium truncate">{variantH1 ?? data.title.split(" — ")[0].split(" | ")[0]}</span>
+            <span className="text-foreground font-medium truncate">
+              {variantH1 ?? data.title.split(" — ")[0].split(" | ")[0]}
+            </span>
           </nav>
         )}
 
@@ -123,6 +130,34 @@ export function CalcWrapper({ id, children, variantH1, variantNote }: CalcWrappe
                 </AccordionItem>
               ))}
             </Accordion>
+          </section>
+        )}
+
+        {/* Related Articles */}
+        {relatedArticles.length > 0 && (
+          <section aria-labelledby="articles-heading">
+            <h2 id="articles-heading" className="text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-primary" />
+              Related Guides &amp; Articles
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {relatedArticles.map((article) => (
+                <Link key={article.slug} href={`/blog/${article.slug}`}>
+                  <div className="group p-4 rounded-lg border bg-card hover:border-primary/40 hover:bg-primary/5 transition-all cursor-pointer h-full">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <Badge variant="secondary" className="text-xs mb-2">{article.category}</Badge>
+                        <p className="text-sm font-medium leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                          {article.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">{article.readTime}</p>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </section>
         )}
 
